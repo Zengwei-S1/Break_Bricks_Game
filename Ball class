@@ -1,0 +1,54 @@
+import processing.core.PApplet;
+
+public class Ball {
+    PApplet p;
+    float x, y;
+    float diameter;
+    float speedX = 3;
+    float speedY = 3;
+
+    Ball(PApplet p, float x, float y, float diameter) {
+        this.p = p;
+        this.x = x;
+        this.y = y;
+        this.diameter = diameter;
+    }
+
+    void update() {
+        x += speedX;
+        y += speedY;
+
+        if (x < diameter / 2 || x > p.width - diameter / 2) {
+            speedX *= -1;
+        }
+        if (y < diameter / 2) {
+            speedY *= -1;
+        }
+    }
+
+    void draw() {
+        p.fill(255);
+        p.ellipse(x, y, diameter, diameter);
+    }
+
+    void reverseY() {
+        speedY *= -1;
+    }
+
+    boolean intersects(Racket paddle) {
+        return x > paddle.x - paddle.w / 2 && x < paddle.x + paddle.w / 2 &&
+                y + diameter / 2 > paddle.y - paddle.h / 2 && y - diameter / 2 < paddle.y + paddle.h / 2;
+    }
+
+    boolean intersects(Brick brick) {
+        return x > brick.x && x < brick.x + brick.w &&
+                y - diameter / 2 < brick.y + brick.h && y + diameter / 2 > brick.y;
+    }
+
+    void reset() {
+        x = p.width / 2;
+        y = p.height / 2;
+        speedX = 3;
+        speedY = 3;
+    }
+}
