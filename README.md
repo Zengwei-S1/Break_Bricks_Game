@@ -1,0 +1,1 @@
+This is a Break the Bricks game using processing. You are moving the racket left to right to bounce off the ball upwards where it will hit the bricks and the brick will essentially disappear (broken).
